@@ -2,15 +2,18 @@ const { Router } = require("express");
 
 const indexRouter = Router();
 
-const messages = require("../data/messages");
+// const messages = require("../data/messages");
+const db = require("../db/queries.js");
 
-indexRouter.get("/", (req, res) => {
+indexRouter.get("/", async (req, res) => {
+  const messages = await db.getMessages();
   res.render("index", { title: "Mini Message-board", messages: messages });
 });
 
-indexRouter.post("/new", (req, res) => {
+indexRouter.post("/new", async (req, res) => {
   const { messageText, authorText } = req.body;
-  messages.push({ text: messageText, user: authorText });
+  // messages.push({ text: messageText, user: authorText });
+  await db.addMessage(authorText, messageText)
   res.redirect("/");
 });
 

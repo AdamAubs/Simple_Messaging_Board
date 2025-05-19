@@ -46,3 +46,4 @@ Thumbs.db
 # Build artifacts (if using build tools like TypeScript or bundlers)
 dist/
 build/
+.env
