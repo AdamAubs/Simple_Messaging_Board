@@ -17,10 +17,11 @@ indexRouter.post("/new", async (req, res) => {
   res.redirect("/");
 });
 
-indexRouter.get("/details/:id", (req, res) => {
+indexRouter.get("/details/:id", async (req, res) => {
   const id = parseInt(req.params.id);
-  const message = messages[id];
-
+  // const message = messages[id];
+  const message = await db.getMessageById(id + 1)
+  console.log(`message ${message.username}`)
   if (!message) {
     return res.status(404).send("Message not found");
   }
